@@ -40,6 +40,8 @@
             this.Attribute = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.restoreRecordsButton = new System.Windows.Forms.Button();
+            this.objectTextBox = new System.Windows.Forms.TextBox();
+            this.objectLabel = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deletedRecordGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailsDataGrid)).BeginInit();
@@ -58,7 +60,6 @@
             // 
             // tsbClose
             // 
-            this.tsbClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbClose.Name = "tsbClose";
             this.tsbClose.Size = new System.Drawing.Size(86, 22);
@@ -217,10 +218,28 @@
             this.restoreRecordsButton.UseVisualStyleBackColor = true;
             this.restoreRecordsButton.Click += new System.EventHandler(this.restoreRecordsButton_Click);
             // 
+            // objectTextBox
+            // 
+            this.objectTextBox.Location = new System.Drawing.Point(267, 26);
+            this.objectTextBox.Name = "objectTextBox";
+            this.objectTextBox.Size = new System.Drawing.Size(163, 20);
+            this.objectTextBox.TabIndex = 15;
+            // 
+            // objectLabel
+            // 
+            this.objectLabel.AutoSize = true;
+            this.objectLabel.Location = new System.Drawing.Point(223, 29);
+            this.objectLabel.Name = "objectLabel";
+            this.objectLabel.Size = new System.Drawing.Size(38, 13);
+            this.objectLabel.TabIndex = 16;
+            this.objectLabel.Text = "Object";
+            // 
             // MyPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.objectLabel);
+            this.Controls.Add(this.objectTextBox);
             this.Controls.Add(this.restoreRecordsButton);
             this.Controls.Add(this.detailsDataGrid);
             this.Controls.Add(this.deletedRecordGrid);
@@ -260,5 +279,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Attribute;
         private System.Windows.Forms.DataGridViewTextBoxColumn Value;
         private System.Windows.Forms.Button restoreRecordsButton;
+        private System.Windows.Forms.TextBox objectTextBox;
+        private System.Windows.Forms.Label objectLabel;
     }
 }

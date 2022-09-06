@@ -31,5 +31,12 @@ namespace Xrm.RecordsRestorator.Plugin.Builders
 
             return this;
         }
+
+        public AuditQueryBuilder ByObjectId(Guid objectId)
+        {
+            AddCondition("objectid", ConditionOperator.Equal, objectId);
+
+            return this;
+        }
     }
 }
