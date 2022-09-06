@@ -129,7 +129,7 @@ namespace Xrm.RecordsRestorator.Plugin
                 Work = (worker, args) =>
                 {
                     AuditQueryBuilder queryBuilder = new AuditQueryBuilder()
-                        .ByOperation(3)
+                        .ByOperation(3) //Delete
                         .WithColumns("objectid", "auditid", "createdon", "objecttypecode", "userid")
                         .OrderBy("createdon", Microsoft.Xrm.Sdk.Query.OrderType.Descending)
                         .SetNoLock(true)
@@ -143,6 +143,11 @@ namespace Xrm.RecordsRestorator.Plugin
                     if (!string.IsNullOrWhiteSpace(SelectedEntity))
                     {
                         queryBuilder.ByEntity(SelectedEntity);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(objectTextBox.Text) && Guid.TryParse(objectTextBox.Text, out var objectId))
+                    {
+                        queryBuilder.ByObjectId(objectId);
                     }
 
                     DeletedRecordsDataSource = new AuditRepository(Service)
