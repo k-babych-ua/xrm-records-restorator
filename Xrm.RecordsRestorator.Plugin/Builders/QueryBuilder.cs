@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xrm.Sdk.Query;
+using System;
 
 namespace Xrm.RecordsRestorator.Plugin.Builders
 {
     internal class QueryBuilder
     {
+        private const string _dateTimeFormat = "yyyy-MM-dd hh:mm";
+
         protected QueryExpression Query { get; private set; }
 
         public QueryBuilder(string entityName)
@@ -77,6 +80,20 @@ namespace Xrm.RecordsRestorator.Plugin.Builders
         public QueryExpression GetQuery()
         {
             return Query;
+        }
+
+        public QueryBuilder ByCreatedOnGreaterEqual(DateTime value)
+        {
+            AddCondition("createdon", ConditionOperator.GreaterEqual, value.ToString(_dateTimeFormat));
+
+            return this;
+        }
+
+        public QueryBuilder ByCreatedOnLessEqual(DateTime value)
+        {
+            AddCondition("createdon", ConditionOperator.LessEqual, value.ToString(_dateTimeFormat));
+
+            return this;
         }
     }
 }
