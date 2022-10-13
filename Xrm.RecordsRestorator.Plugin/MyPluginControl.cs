@@ -21,6 +21,7 @@ namespace Xrm.RecordsRestorator.Plugin
         private Guid? SelectedUser = Guid.Empty;
         private string SelectedEntity = string.Empty;
         private int SelectedRow = -1;
+        private DateTime? FromDate = null, ToDate = null;
 
         private IEnumerable<EntityItem> AuditableEntities;
         private List<AuditItem> DeletedRecordsDataSource;
@@ -150,6 +151,16 @@ namespace Xrm.RecordsRestorator.Plugin
                         queryBuilder.ByObjectId(objectId);
                     }
 
+                    if (FromDate.HasValue)
+                    {
+                        queryBuilder.ByCreatedOnGreaterEqual(FromDate.Value.ToUniversalTime());
+                    }
+
+                    if (ToDate.HasValue)
+                    {
+                        queryBuilder.ByCreatedOnLessEqual(ToDate.Value.ToUniversalTime());
+                    }
+
                     DeletedRecordsDataSource = new AuditRepository(Service)
                         .RetrieveMultiple(queryBuilder.GetQuery())
                         .Select(x => new AuditItem()
@@ -241,6 +252,30 @@ namespace Xrm.RecordsRestorator.Plugin
                     detailsDataGrid.DataSource = args.Result;
                 }
             });
+        }
+
+        private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            if (fromDateTimePicker.Checked)
+            {
+                FromDate = fromDateTimePicker.Value;
+            }
+            else
+            {
+                FromDate = null;
+            }
+        }
+
+        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            if (toDateTimePicker.Checked)
+            {
+                ToDate = toDateTimePicker.Value;
+            }
+            else
+            {
+                ToDate = null;
+            }
         }
 
         private void restoreRecordsButton_Click(object sender, EventArgs e)

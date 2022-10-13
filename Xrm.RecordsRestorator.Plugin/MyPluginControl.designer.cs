@@ -42,6 +42,10 @@
             this.restoreRecordsButton = new System.Windows.Forms.Button();
             this.objectTextBox = new System.Windows.Forms.TextBox();
             this.objectLabel = new System.Windows.Forms.Label();
+            this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.fromDateLabel = new System.Windows.Forms.Label();
+            this.toDateLabel = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deletedRecordGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailsDataGrid)).BeginInit();
@@ -234,10 +238,56 @@
             this.objectLabel.TabIndex = 16;
             this.objectLabel.Text = "Object";
             // 
+            // fromDateTimePicker
+            // 
+            this.fromDateTimePicker.Checked = false;
+            this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fromDateTimePicker.Location = new System.Drawing.Point(473, 26);
+            this.fromDateTimePicker.Name = "fromDateTimePicker";
+            this.fromDateTimePicker.ShowCheckBox = true;
+            this.fromDateTimePicker.Size = new System.Drawing.Size(118, 20);
+            this.fromDateTimePicker.TabIndex = 17;
+            this.fromDateTimePicker.Value = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
+            this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged);
+            // 
+            // toDateTimePicker
+            // 
+            this.toDateTimePicker.Checked = false;
+            this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.toDateTimePicker.Location = new System.Drawing.Point(473, 54);
+            this.toDateTimePicker.Name = "toDateTimePicker";
+            this.toDateTimePicker.ShowCheckBox = true;
+            this.toDateTimePicker.Size = new System.Drawing.Size(118, 20);
+            this.toDateTimePicker.TabIndex = 18;
+            this.toDateTimePicker.Value = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
+            this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
+            // 
+            // fromDateLabel
+            // 
+            this.fromDateLabel.AutoSize = true;
+            this.fromDateLabel.Location = new System.Drawing.Point(437, 33);
+            this.fromDateLabel.Name = "fromDateLabel";
+            this.fromDateLabel.Size = new System.Drawing.Size(30, 13);
+            this.fromDateLabel.TabIndex = 19;
+            this.fromDateLabel.Text = "From";
+            // 
+            // toDateLabel
+            // 
+            this.toDateLabel.AutoSize = true;
+            this.toDateLabel.Location = new System.Drawing.Point(437, 56);
+            this.toDateLabel.Name = "toDateLabel";
+            this.toDateLabel.Size = new System.Drawing.Size(20, 13);
+            this.toDateLabel.TabIndex = 20;
+            this.toDateLabel.Text = "To";
+            // 
             // MyPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.toDateLabel);
+            this.Controls.Add(this.fromDateLabel);
+            this.Controls.Add(this.toDateTimePicker);
+            this.Controls.Add(this.fromDateTimePicker);
             this.Controls.Add(this.objectLabel);
             this.Controls.Add(this.objectTextBox);
             this.Controls.Add(this.restoreRecordsButton);
@@ -281,5 +331,9 @@
         private System.Windows.Forms.Button restoreRecordsButton;
         private System.Windows.Forms.TextBox objectTextBox;
         private System.Windows.Forms.Label objectLabel;
+        private System.Windows.Forms.DateTimePicker fromDateTimePicker;
+        private System.Windows.Forms.DateTimePicker toDateTimePicker;
+        private System.Windows.Forms.Label fromDateLabel;
+        private System.Windows.Forms.Label toDateLabel;
     }
 }
