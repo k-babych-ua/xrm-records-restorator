@@ -33,8 +33,6 @@ namespace Xrm.RecordsRestorator.Plugin
 
         private void MyPluginControl_Load(object sender, EventArgs e)
         {
-            ShowInfoNotification("This is a notification that can lead to XrmToolBox repository", new Uri("https://github.com/MscrmTools/XrmToolBox"));
-
             // Loads or creates the settings for the plugin
             if (!SettingsManager.Instance.TryLoad(GetType(), out mySettings))
             {
@@ -47,8 +45,11 @@ namespace Xrm.RecordsRestorator.Plugin
                 LogInfo("Settings found and loaded");
             }
 
-            GetUsers();
-            GetEntities();
+            if (Service != null)
+            {
+                GetUsers();
+                GetEntities();
+            }
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
