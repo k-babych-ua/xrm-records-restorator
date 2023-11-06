@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/k-babych-ua/xrm-records-restorator</projectUrl>
+		<iconUrl>https://i.ibb.co/b6t1NVd/plugin-icon128px.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>XRM Records Restorator is a plug-in for XrmToolbox which gives a user ability to restore deleted record using audit history.</description>
+		<releaseNotes>First release</releaseNotes>
+		<copyright>Copyright 2023</copyright>
+		<tags>XrmToolBox Dataverse Data Restoration XRM Dynamics</tags>
+		<dependencies>
+			<dependency id="XrmToolBox" version="1.2022.5.56"/>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\Plugins\Xrm.RecordsRestorator.Plugin.dll" target="lib\net472\Plugins"/>
+	</files>
+</package>

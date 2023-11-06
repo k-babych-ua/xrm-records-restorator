@@ -59,7 +59,7 @@
             this.tsbClose});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
-            this.toolStripMenu.Size = new System.Drawing.Size(1549, 31);
+            this.toolStripMenu.Size = new System.Drawing.Size(1549, 27);
             this.toolStripMenu.TabIndex = 4;
             this.toolStripMenu.Text = "toolStrip1";
             // 
@@ -67,7 +67,7 @@
             // 
             this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbClose.Name = "tsbClose";
-            this.tsbClose.Size = new System.Drawing.Size(107, 28);
+            this.tsbClose.Size = new System.Drawing.Size(107, 24);
             this.tsbClose.Text = "Close this tool";
             this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
             // 
@@ -75,7 +75,7 @@
             // 
             this.entitiesCb.FormattingEnabled = true;
             this.entitiesCb.Location = new System.Drawing.Point(96, 32);
-            this.entitiesCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.entitiesCb.Margin = new System.Windows.Forms.Padding(4);
             this.entitiesCb.Name = "entitiesCb";
             this.entitiesCb.Size = new System.Drawing.Size(196, 24);
             this.entitiesCb.TabIndex = 6;
@@ -105,7 +105,7 @@
             // 
             this.usersCb.FormattingEnabled = true;
             this.usersCb.Location = new System.Drawing.Point(96, 65);
-            this.usersCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usersCb.Margin = new System.Windows.Forms.Padding(4);
             this.usersCb.Name = "usersCb";
             this.usersCb.Size = new System.Drawing.Size(196, 24);
             this.usersCb.TabIndex = 9;
@@ -114,7 +114,7 @@
             // fetchRecordsBtn
             // 
             this.fetchRecordsBtn.Location = new System.Drawing.Point(21, 98);
-            this.fetchRecordsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fetchRecordsBtn.Margin = new System.Windows.Forms.Padding(4);
             this.fetchRecordsBtn.Name = "fetchRecordsBtn";
             this.fetchRecordsBtn.Size = new System.Drawing.Size(272, 28);
             this.fetchRecordsBtn.TabIndex = 10;
@@ -136,7 +136,7 @@
             this.UserId,
             this.CreatedDate});
             this.deletedRecordGrid.Location = new System.Drawing.Point(19, 162);
-            this.deletedRecordGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.deletedRecordGrid.Margin = new System.Windows.Forms.Padding(4);
             this.deletedRecordGrid.Name = "deletedRecordGrid";
             this.deletedRecordGrid.ReadOnly = true;
             this.deletedRecordGrid.RowHeadersWidth = 51;
@@ -205,7 +205,7 @@
             this.Attribute,
             this.Value});
             this.detailsDataGrid.Location = new System.Drawing.Point(880, 162);
-            this.detailsDataGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.detailsDataGrid.Margin = new System.Windows.Forms.Padding(4);
             this.detailsDataGrid.MultiSelect = false;
             this.detailsDataGrid.Name = "detailsDataGrid";
             this.detailsDataGrid.ReadOnly = true;
@@ -235,7 +235,7 @@
             // restoreRecordsButton
             // 
             this.restoreRecordsButton.Location = new System.Drawing.Point(301, 98);
-            this.restoreRecordsButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.restoreRecordsButton.Margin = new System.Windows.Forms.Padding(4);
             this.restoreRecordsButton.Name = "restoreRecordsButton";
             this.restoreRecordsButton.Size = new System.Drawing.Size(272, 28);
             this.restoreRecordsButton.TabIndex = 14;
@@ -246,7 +246,7 @@
             // objectTextBox
             // 
             this.objectTextBox.Location = new System.Drawing.Point(356, 32);
-            this.objectTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.objectTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.objectTextBox.Name = "objectTextBox";
             this.objectTextBox.Size = new System.Drawing.Size(216, 22);
             this.objectTextBox.TabIndex = 15;
@@ -266,7 +266,7 @@
             this.fromDateTimePicker.Checked = false;
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.fromDateTimePicker.Location = new System.Drawing.Point(631, 32);
-            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(4);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.ShowCheckBox = true;
             this.fromDateTimePicker.Size = new System.Drawing.Size(156, 22);
@@ -279,7 +279,7 @@
             this.toDateTimePicker.Checked = false;
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.toDateTimePicker.Location = new System.Drawing.Point(631, 66);
-            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(4);
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.ShowCheckBox = true;
             this.toDateTimePicker.Size = new System.Drawing.Size(156, 22);
@@ -326,10 +326,11 @@
             this.Controls.Add(this.entityLabel);
             this.Controls.Add(this.entitiesCb);
             this.Controls.Add(this.toolStripMenu);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MyPluginControl";
             this.PluginIcon = ((System.Drawing.Icon)(resources.GetObject("$this.PluginIcon")));
             this.Size = new System.Drawing.Size(1549, 610);
+            this.TabIcon = global::Xrm.RecordsRestorator.Plugin.Properties.Resources.plugin_icon32px;
             this.Load += new System.EventHandler(this.MyPluginControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
