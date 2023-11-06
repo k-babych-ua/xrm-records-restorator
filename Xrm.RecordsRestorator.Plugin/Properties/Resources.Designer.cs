@@ -59,5 +59,15 @@ namespace Xrm.RecordsRestorator.Plugin.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap plugin_icon32px {
+            get {
+                object obj = ResourceManager.GetObject("plugin-icon32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
