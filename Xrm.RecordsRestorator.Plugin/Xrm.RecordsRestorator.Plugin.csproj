@@ -258,6 +258,10 @@
   <ItemGroup>
     <None Include="Resources\Icons\plugin-icon32px.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Icons\plugin-icon128px.png" />
+    <Content Include="Resources\Icons\plugin-icon32px.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
