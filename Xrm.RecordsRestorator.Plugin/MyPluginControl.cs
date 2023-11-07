@@ -26,6 +26,9 @@ namespace Xrm.RecordsRestorator.Plugin
         private IEnumerable<EntityItem> AuditableEntities;
         private List<AuditItem> DeletedRecordsDataSource;
 
+        private string _errorMessage;
+        private Exception _exception;
+
         public MyPluginControl()
         {
             InitializeComponent();
@@ -80,9 +83,17 @@ namespace Xrm.RecordsRestorator.Plugin
                 Message = "Retrieving auditable entities",
                 Work = (worker, args) =>
                 {
-                    AuditableEntities = new MetadataRepository(Service)
-                        .GetAuditableEntity()
-                        .ToArray();
+                    try
+                    {
+                        AuditableEntities = new MetadataRepository(Service)
+                            .GetAuditableEntity()
+                            .ToArray();
+                    }
+                    catch (Exception ex)
+                    {
+                        _errorMessage = $"Can't get auditable tables: {ex.Message}";
+                        _exception = ex;
+                    }
                 },
                 PostWorkCallBack = (args) =>
                 {
@@ -94,6 +105,8 @@ namespace Xrm.RecordsRestorator.Plugin
 
                     entitiesCb.SelectedItem = null;
                     entitiesCb.SelectedText = "All";
+
+                    HandleError();
                 }
             });
         }
@@ -105,9 +118,17 @@ namespace Xrm.RecordsRestorator.Plugin
                 Message = "Retrieving the users",
                 Work = (worker, args) =>
                 {
-                    args.Result = new UsersRepository(Service)
-                        .GetEnabledUsers()
-                        .ToArray();
+                    try
+                    {
+                        args.Result = new UsersRepository(Service)
+                            .GetEnabledUsers()
+                            .ToArray();
+                    }
+                    catch (Exception ex)
+                    {
+                        _errorMessage = $"Can't get users information: {ex.Message}";
+                        _exception = ex;
+                    }
                 },
                 PostWorkCallBack = (args) =>
                 {
@@ -119,6 +140,8 @@ namespace Xrm.RecordsRestorator.Plugin
 
                     usersCb.SelectedItem = null;
                     usersCb.SelectedText = "All";
+
+                    HandleError();
                 }
             });
         }
@@ -162,21 +185,32 @@ namespace Xrm.RecordsRestorator.Plugin
                         queryBuilder.ByCreatedOnLessEqual(ToDate.Value.ToUniversalTime());
                     }
 
-                    DeletedRecordsDataSource = new AuditRepository(Service)
-                        .RetrieveMultiple(queryBuilder.GetQuery())
-                        .Select(x => new AuditItem()
-                        {
-                            Id = x.Id,
-                            Entity = x.GetAttributeValue<string>("objecttypecode"),
-                            ObjectId = new EntityReferenceWrapper(x.GetAttributeValue<EntityReference>("objectid")),
-                            UserId = new EntityReferenceWrapper(x.GetAttributeValue<EntityReference>("userid")),
-                            CreatedDate = x.GetAttributeValue<DateTime>("createdon")
-                        })
-                        .ToList();
+                    try
+                    {
+
+                        DeletedRecordsDataSource = new AuditRepository(Service)
+                            .RetrieveMultiple(queryBuilder.GetQuery())
+                            .Select(x => new AuditItem()
+                            {
+                                Id = x.Id,
+                                Entity = x.GetAttributeValue<string>("objecttypecode"),
+                                ObjectId = new EntityReferenceWrapper(x.GetAttributeValue<EntityReference>("objectid")),
+                                UserId = new EntityReferenceWrapper(x.GetAttributeValue<EntityReference>("userid")),
+                                CreatedDate = x.GetAttributeValue<DateTime>("createdon")
+                            })
+                            .ToList();
+                    }
+                    catch (Exception ex)
+                    {
+                        _errorMessage = $"Can't fetch audit history records: {ex.Message}";
+                        _exception = ex;
+                    }
                 },
                 PostWorkCallBack = (args) =>
                 {
                     deletedRecordGrid.DataSource = DeletedRecordsDataSource;
+
+                    HandleError();
                 }
             });
         }
@@ -225,7 +259,8 @@ namespace Xrm.RecordsRestorator.Plugin
                 {
                     DataGridView dataGridView = sender as DataGridView;
 
-                    if (dataGridView.CurrentRow.Index == SelectedRow || dataGridView.CurrentRow.Index < 0)
+                    if (dataGridView?.CurrentRow == null || dataGridView.CurrentRow.Index == SelectedRow || 
+                        dataGridView.CurrentRow.Index < 0)
                     {
                         args.Cancel = true;
                         return;
@@ -233,20 +268,30 @@ namespace Xrm.RecordsRestorator.Plugin
 
                     SelectedRow = dataGridView.CurrentRow.Index;
 
-                    var response = (RetrieveAuditDetailsResponse)Service.Execute(new RetrieveAuditDetailsRequest()
+                    try
                     {
-                        AuditId = DeletedRecordsDataSource[SelectedRow].Id
-                    });
+                        var response = (RetrieveAuditDetailsResponse)Service.Execute(new RetrieveAuditDetailsRequest()
+                        {
+                            AuditId = DeletedRecordsDataSource[SelectedRow].Id
+                        });
 
-                    if (response.Results.Count > 0 && response.Results.Values.FirstOrDefault() is AttributeAuditDetail auditDetails)
+                        if (response.Results.Count > 0 && response.Results.Values.FirstOrDefault() is AttributeAuditDetail auditDetails)
+                        {
+                            args.Result = auditDetails.OldValue.Attributes
+                                .Select(attr => new AttributeWrapper(attr))
+                                .ToArray();
+                        }
+                    }
+                    catch (Exception ex)
                     {
-                        args.Result = auditDetails.OldValue.Attributes
-                            .Select(attr => new AttributeWrapper(attr))
-                            .ToArray();
+                        _errorMessage = $"Can't retrieve audit details: {ex.Message}";
+                        _exception = ex;
                     }
                 },
                 PostWorkCallBack = (args) =>
                 {
+                    HandleError();
+
                     if (args.Cancelled)
                         return;
 
@@ -302,11 +347,35 @@ namespace Xrm.RecordsRestorator.Plugin
                             Entity recordToRestore = auditDetails.OldValue;
                             recordToRestore[primaryKey] = auditDetails.AuditRecord.GetAttributeValue<EntityReference>("objectid").Id;
 
-                            Service.Create(recordToRestore);
+                            try
+                            {
+                                Service.Create(recordToRestore);
+                            }
+                            catch (Exception ex)
+                            {
+                                _errorMessage = $"Can't create a record: {ex.Message}";
+                                _exception = ex;
+                            }
                         }
                     }
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    HandleError();
                 }
             });
+        }
+
+        private void HandleError()
+        {
+            if (!string.IsNullOrWhiteSpace(_errorMessage))
+            {
+                LogError(_errorMessage);
+                ShowErrorDialog(_exception, "Error", _errorMessage);
+
+                _errorMessage = null;
+                _exception = null;
+            }
         }
     }
 }
